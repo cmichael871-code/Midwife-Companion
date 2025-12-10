@@ -27,9 +27,10 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--nhs-grey-5);
             margin: 0;
-            padding-bottom: 100px;
+            padding-bottom: 110px; /* Extra space for Nav */
             color: #231f20;
             -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
         }
 
         /* HEADER */
@@ -39,7 +40,7 @@
             padding: 16px;
             position: sticky;
             top: 0;
-            z-index: 1000; /* Increased Z-Index to stay on top */
+            z-index: 9999; /* Ensure header is always on top */
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             display: flex;
             align-items: center;
@@ -54,8 +55,8 @@
             max-width: 600px; 
             margin: 0 auto; 
             padding: 16px; 
-            position: relative; 
-            z-index: 1; /* Ensures content is clickable */
+            position: relative;
+            z-index: 1;
         }
 
         /* CARDS */
@@ -81,82 +82,70 @@
         .stat-row:last-child { border-bottom: none; }
         .stat-label { font-weight: bold; color: var(--nhs-blue); flex: 1; }
         .stat-controls { display: flex; align-items: center; gap: 15px; }
+        
+        /* TOUCH TARGETS FIXED */
+        button { touch-action: manipulation; }
+        
         .stat-btn {
-            width: 44px; height: 44px; border-radius: 50%; border: none; /* Bigger touch target */
+            width: 45px; height: 45px; border-radius: 50%; border: none;
             font-size: 1.5rem; color: white; cursor: pointer; display: flex;
             align-items: center; justify-content: center;
             box-shadow: 0 2px 0 rgba(0,0,0,0.2);
-            touch-action: manipulation; /* Improves touch response */
+            -webkit-appearance: none; /* iOS Fix */
         }
         .btn-minus { background-color: var(--nhs-red); }
         .btn-plus { background-color: var(--nhs-green); }
         .stat-value { font-size: 1.25rem; font-weight: bold; width: 40px; text-align: center; }
 
-        /* INPUTS & BUTTONS */
+        /* FORMS */
         label { display: block; margin-bottom: 8px; font-weight: 600; color: var(--nhs-grey-1); }
         input, select {
-            width: 100%; padding: 12px; font-size: 16px; /* Larger padding for touch */
+            width: 100%; padding: 12px; font-size: 16px;
             border: 2px solid var(--nhs-grey-1); border-radius: 4px;
             box-sizing: border-box; margin-bottom: 16px; background-color: var(--white);
+            -webkit-appearance: none; /* iOS Fix */
         }
-        input:focus, select:focus { outline: 3px solid var(--nhs-warm-yellow); border-color: var(--nhs-blue); }
+        select { background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+            background-repeat: no-repeat; background-position: right .7em top 50%; background-size: .65em auto; padding-right: 1.5em; 
+        }
 
         .btn {
             background-color: var(--nhs-green); color: var(--white); border: none;
             padding: 14px 24px; font-size: 1rem; font-weight: 600; border-radius: 4px;
             cursor: pointer; width: 100%; text-align: center; box-shadow: 0 4px 0 #006627;
+            -webkit-appearance: none;
         }
         .btn:active { box-shadow: none; transform: translateY(4px); }
 
-        /* RESULTS */
         .result-box {
             margin-top: 16px; padding: 16px; background-color: #e6f3fa;
             border-left: 8px solid var(--nhs-blue); display: none;
         }
         .result-value { font-size: 1.25rem; font-weight: bold; color: var(--nhs-dark-blue); }
 
-        /* MEDICATION LIST */
-        .med-warning {
-            background-color: #fff5f5; border: 1px solid #fcbwbw; color: #cc0000;
-            padding: 10px; font-size: 0.85rem; border-radius: 4px; margin-bottom: 15px; font-weight: bold;
-        }
-        .med-item { padding: 16px 0; border-bottom: 1px solid #eee; }
-        .med-name { color: var(--nhs-blue); font-weight: bold; font-size: 1.15rem; }
-        .med-dose { font-weight: 600; color: #333; margin-top: 4px; font-size: 0.95rem; }
-        .med-desc { color: #555; font-size: 0.9rem; margin-top: 4px; line-height: 1.4; }
-        .med-tag { 
-            display: inline-block; font-size: 0.75rem; padding: 3px 8px; 
-            border-radius: 12px; margin-top: 8px; font-weight: 600; margin-right: 5px;
-        }
-        .tag-pain { background: #e8f5e9; color: #2e7d32; }
-        .tag-emergency { background: #ffebee; color: #c62828; }
-        .tag-labour { background: #e3f2fd; color: #1565c0; }
-        .tag-gynae { background: #f3e5f5; color: #7b1fa2; }
-        .tag-anti { background: #fff3e0; color: #ef6c00; }
-
         /* NAV BAR */
         .nav-bar {
             position: fixed; bottom: 0; left: 0; width: 100%; 
             background: var(--white); border-top: 1px solid var(--card-border); 
-            display: flex; justify-content: space-around; padding: 12px 0; 
-            z-index: 1000; /* High Z-index ensures it's always clickable */
+            display: flex; justify-content: space-around; padding: 10px 0; 
+            z-index: 9999; /* Highest priority */
+            padding-bottom: env(safe-area-inset-bottom); /* iPhone X fix */
         }
         .nav-item { 
             text-align: center; font-size: 0.7rem; color: var(--nhs-blue); 
             cursor: pointer; flex: 1; display: flex; flex-direction: column; 
             align-items: center; gap: 4px; 
-            touch-action: manipulation;
         }
         .nav-icon { font-size: 1.2rem; display: block; }
-        .nav-item.active { font-weight: bold; border-bottom: 3px solid var(--nhs-blue); margin-bottom: -12px; padding-bottom: 9px; }
+        .nav-item.active { font-weight: bold; border-bottom: 3px solid var(--nhs-blue); margin-bottom: -10px; padding-bottom: 7px; }
 
         .tab-content { display: none; }
-        .tab-content.active { display: block; animation: fadeIn 0.3s; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .tab-content.active { display: block; }
         
-        #offline-status {
-            background: var(--nhs-warm-yellow); color: #000; text-align: center;
-            padding: 5px; font-size: 0.8rem; font-weight: bold; display: none;
+        #reset-btn {
+            background-color: var(--nhs-red); color: white; padding: 10px;
+            text-align: center; margin-top: 20px; cursor: pointer; border-radius: 4px;
+            font-weight: bold; font-size: 0.9rem;
         }
     </style>
 </head>
@@ -167,68 +156,59 @@
         <div class="nhs-logo">NHS</div>
     </header>
     
-    <div id="offline-status">You are currently offline.</div>
-
     <div class="container">
 
         <div id="tab-mora" class="tab-content active">
             <div class="card">
                 <h2>MORA Progress</h2>
-                <div style="font-size:0.9rem; color:#666; margin-bottom:20px;">Tally counts are saved automatically.</div>
+                <div style="font-size:0.9rem; color:#666; margin-bottom:20px;">Stats save automatically.</div>
                 
                 <div class="stat-row">
                     <div class="stat-label">Births (40)</div>
                     <div class="stat-controls">
-                        <button class="stat-btn btn-minus" onclick="updateStat('births', -1)">-</button>
+                        <button type="button" class="stat-btn btn-minus" onclick="updateStat('births', -1)">-</button>
                         <div class="stat-value" id="val-births">0</div>
-                        <button class="stat-btn btn-plus" onclick="updateStat('births', 1)">+</button>
+                        <button type="button" class="stat-btn btn-plus" onclick="updateStat('births', 1)">+</button>
                     </div>
                 </div>
 
                 <div class="stat-row">
-                    <div class="stat-label">Antenatal Exams (100)</div>
+                    <div class="stat-label">Antenatal (100)</div>
                     <div class="stat-controls">
-                        <button class="stat-btn btn-minus" onclick="updateStat('ante', -1)">-</button>
+                        <button type="button" class="stat-btn btn-minus" onclick="updateStat('ante', -1)">-</button>
                         <div class="stat-value" id="val-ante">0</div>
-                        <button class="stat-btn btn-plus" onclick="updateStat('ante', 1)">+</button>
+                        <button type="button" class="stat-btn btn-plus" onclick="updateStat('ante', 1)">+</button>
                     </div>
                 </div>
 
                 <div class="stat-row">
-                    <div class="stat-label">Postnatal Exams (100)</div>
+                    <div class="stat-label">Postnatal (100)</div>
                     <div class="stat-controls">
-                        <button class="stat-btn btn-minus" onclick="updateStat('post', -1)">-</button>
+                        <button type="button" class="stat-btn btn-minus" onclick="updateStat('post', -1)">-</button>
                         <div class="stat-value" id="val-post">0</div>
-                        <button class="stat-btn btn-plus" onclick="updateStat('post', 1)">+</button>
+                        <button type="button" class="stat-btn btn-plus" onclick="updateStat('post', 1)">+</button>
                     </div>
                 </div>
-
-                <div class="stat-row">
-                    <div class="stat-label">Complex Care</div>
-                    <div class="stat-controls">
-                        <button class="stat-btn btn-minus" onclick="updateStat('complex', -1)">-</button>
-                        <div class="stat-value" id="val-complex">0</div>
-                        <button class="stat-btn btn-plus" onclick="updateStat('complex', 1)">+</button>
-                    </div>
-                </div>
-
+                
                 <div class="stat-row">
                     <div class="stat-label">NIPE</div>
                     <div class="stat-controls">
-                        <button class="stat-btn btn-minus" onclick="updateStat('nipe', -1)">-</button>
+                        <button type="button" class="stat-btn btn-minus" onclick="updateStat('nipe', -1)">-</button>
                         <div class="stat-value" id="val-nipe">0</div>
-                        <button class="stat-btn btn-plus" onclick="updateStat('nipe', 1)">+</button>
+                        <button type="button" class="stat-btn btn-plus" onclick="updateStat('nipe', 1)">+</button>
                     </div>
                 </div>
 
                 <div class="stat-row">
                     <div class="stat-label">Suturing</div>
                     <div class="stat-controls">
-                        <button class="stat-btn btn-minus" onclick="updateStat('suture', -1)">-</button>
+                        <button type="button" class="stat-btn btn-minus" onclick="updateStat('suture', -1)">-</button>
                         <div class="stat-value" id="val-suture">0</div>
-                        <button class="stat-btn btn-plus" onclick="updateStat('suture', 1)">+</button>
+                        <button type="button" class="stat-btn btn-plus" onclick="updateStat('suture', 1)">+</button>
                     </div>
                 </div>
+
+                <div id="reset-btn" onclick="forceReset()">⚠️ Fix App / Reset</div>
             </div>
         </div>
 
@@ -238,12 +218,12 @@
                 <label for="lmp">First day of LMP</label>
                 <input type="date" id="lmp">
                 <label for="cycle">Cycle Length (Days)</label>
-                <input type="number" id="cycle" value="28" placeholder="28">
-                <button class="btn" onclick="calculateEDD()">Calculate Date</button>
+                <input type="number" id="cycle" value="28">
+                <button class="btn" type="button" onclick="calculateEDD()">Calculate Date</button>
                 <div id="edd-result" class="result-box">
                     <div>Estimated Due Date:</div>
                     <div class="result-value" id="edd-date-display">--/--/----</div>
-                    <div style="font-size: 0.9rem; margin-top:5px;">Gestational Age: <span id="gestation-display">0 weeks</span></div>
+                    <div>Gestational Age: <span id="gestation-display">0 weeks</span></div>
                 </div>
             </div>
         </div>
@@ -251,7 +231,7 @@
         <div id="tab-bishop" class="tab-content">
             <div class="card">
                 <h2>Bishop Score</h2>
-                <label>Dilation (cm)</label>
+                <label>Dilation</label>
                 <select id="bish-dilation">
                     <option value="0">Closed (0)</option>
                     <option value="1">1-2 cm (1)</option>
@@ -272,23 +252,22 @@
                     <option value="2">-1 / 0 (2)</option>
                     <option value="3">+1 / +2 (3)</option>
                 </select>
-                <label>Cervical Consistency</label>
+                <label>Consistency</label>
                 <select id="bish-consist">
                     <option value="0">Firm (0)</option>
                     <option value="1">Medium (1)</option>
                     <option value="2">Soft (2)</option>
                 </select>
-                <label>Cervical Position</label>
+                <label>Position</label>
                 <select id="bish-pos">
                     <option value="0">Posterior (0)</option>
-                    <option value="1">Mid-position (1)</option>
+                    <option value="1">Mid (1)</option>
                     <option value="2">Anterior (2)</option>
                 </select>
-                <button class="btn" onclick="calculateBishop()">Calculate Score</button>
+                <button class="btn" type="button" onclick="calculateBishop()">Calculate Score</button>
                 <div id="bishop-result" class="result-box">
-                    <div>Total Score:</div>
-                    <div class="result-value" id="bishop-score-display">0</div>
-                    <div id="bishop-interp" style="margin-top: 5px; font-style: italic;"></div>
+                    <div>Total Score: <span class="result-value" id="bishop-score-display">0</span></div>
+                    <div id="bishop-interp" style="font-style:italic;"></div>
                 </div>
             </div>
         </div>
@@ -296,24 +275,17 @@
         <div id="tab-meds" class="tab-content">
             <div class="card">
                 <h2>Medication Index</h2>
-                <div class="med-warning">⚠️ ALWAYS check your local Trust Guidelines (PGDs) & BNF before administration.</div>
-                <input type="text" id="med-search" onkeyup="filterMeds()" placeholder="Search (e.g. 'PPH', 'Anti-D')...">
+                <input type="text" id="med-search" onkeyup="filterMeds()" placeholder="Search...">
                 <div id="med-list">
-                    <div class="med-item"><div class="med-name">Paracetamol</div><div class="med-dose">Dose: 1g PO/IV q4-6h (Max 4g/24h)</div><div class="med-desc">Mild pain/pyrexia. Caution &lt;50kg.</div><span class="med-tag tag-pain">Analgesia</span></div>
-                    <div class="med-item"><div class="med-name">Dihydrocodeine</div><div class="med-dose">Dose: 30mg PO q4-6h</div><div class="med-desc">Moderate pain (postnatal). Avoid in BF if baby prem.</div><span class="med-tag tag-pain">Analgesia</span></div>
-                    <div class="med-item"><div class="med-name">Pethidine</div><div class="med-dose">Dose: 50-100mg IM</div><div class="med-desc">1st stage labour. Crosses placenta (resp dep).</div><span class="med-tag tag-pain">Analgesia</span></div>
-                    <div class="med-item"><div class="med-name">Entonox</div><div class="med-dose">Dose: Inhaled 50:50</div><div class="med-desc">Self-administered. Rapid onset/offset.</div><span class="med-tag tag-pain">Analgesia</span></div>
-                    <div class="med-item"><div class="med-name">Syntocinon (Oxytocin)</div><div class="med-dose">Dose: 10 IU IM or 5 IU IV</div><div class="med-desc">3rd stage / PPH prevention.</div><span class="med-tag tag-labour">3rd Stage</span></div>
-                    <div class="med-item"><div class="med-name">Syntometrine</div><div class="med-dose">Dose: 1ml IM</div><div class="med-desc">3rd Stage. C/I: Hypertension.</div><span class="med-tag tag-labour">3rd Stage</span></div>
-                    <div class="med-item"><div class="med-name">Ergometrine</div><div class="med-dose">Dose: 500mcg IM / 250mcg IV</div><div class="med-desc">PPH. Sustained contraction. C/I: Hypertension.</div><span class="med-tag tag-emergency">PPH</span></div>
-                    <div class="med-item"><div class="med-name">Carboprost</div><div class="med-dose">Dose: 250mcg Deep IM</div><div class="med-desc">Severe PPH. C/I: Asthma.</div><span class="med-tag tag-emergency">PPH</span></div>
-                    <div class="med-item"><div class="med-name">Misoprostol</div><div class="med-dose">Dose: 800mcg PR/SL (PPH)</div><div class="med-desc">Prostaglandin. PPH or IOL.</div><span class="med-tag tag-emergency">PPH</span></div>
-                    <div class="med-item"><div class="med-name">Labetalol</div><div class="med-dose">Dose: 200mg PO</div><div class="med-desc">Hypertension/Pre-E. C/I: Asthma.</div><span class="med-tag tag-gynae">Hypertension</span></div>
-                    <div class="med-item"><div class="med-name">Magnesium Sulphate</div><div class="med-dose">Dose: 4g IV Load</div><div class="med-desc">Eclampsia prevention / Neuroprotection.</div><span class="med-tag tag-emergency">Emergency</span></div>
-                    <div class="med-item"><div class="med-name">Adrenaline</div><div class="med-dose">Dose: 500mcg (1:1000) IM</div><div class="med-desc">Anaphylaxis. Repeat 5 min.</div><span class="med-tag tag-emergency">Emergency</span></div>
-                    <div class="med-item"><div class="med-name">Benzylpenicillin</div><div class="med-dose">Dose: 3g IV Load</div><div class="med-desc">GBS Prophylaxis intrapartum.</div><span class="med-tag tag-anti">Antibiotic</span></div>
-                    <div class="med-item"><div class="med-name">Anti-D Ig</div><div class="med-dose">Dose: 1500 IU / 500 IU</div><div class="med-desc">RhD Neg prophylaxis.</div><span class="med-tag tag-gynae">Antenatal</span></div>
-                    <div class="med-item"><div class="med-name">Vitamin K</div><div class="med-dose">Dose: 1mg IM</div><div class="med-desc">VKDB prevention.</div><span class="med-tag tag-labour">Neonatal</span></div>
+                    <div class="med-item"><div class="med-name">Paracetamol</div><div class="med-dose">1g PO/IV q4-6h</div></div>
+                    <div class="med-item"><div class="med-name">Dihydrocodeine</div><div class="med-dose">30mg PO q4-6h</div></div>
+                    <div class="med-item"><div class="med-name">Pethidine</div><div class="med-dose">50-100mg IM</div></div>
+                    <div class="med-item"><div class="med-name">Syntometrine</div><div class="med-dose">1ml IM</div></div>
+                    <div class="med-item"><div class="med-name">Syntocinon</div><div class="med-dose">10 IU IM / 5 IU IV</div></div>
+                    <div class="med-item"><div class="med-name">Ergometrine</div><div class="med-dose">500mcg IM</div></div>
+                    <div class="med-item"><div class="med-name">Labetalol</div><div class="med-dose">200mg PO</div></div>
+                    <div class="med-item"><div class="med-name">Mag Sulphate</div><div class="med-dose">4g IV Load</div></div>
+                    <div class="med-item"><div class="med-name">Anti-D Ig</div><div class="med-dose">1500 IU / 500 IU</div></div>
                 </div>
             </div>
         </div>
@@ -328,53 +300,104 @@
     </nav>
 
     <script>
-        // === SAFE MODE JAVASCRIPT ===
+        // === GLOBAL FUNCTIONS (Must be here to work) ===
 
-        // 1. NAVIGATION
+        // 1. NAV LOGIC
         function switchTab(tabName, element) {
-            try {
-                document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-                const target = document.getElementById('tab-' + tabName);
-                if (target) target.classList.add('active');
-                
-                document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-                if (element) element.classList.add('active');
-            } catch (e) { console.error("Nav error", e); }
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.getElementById('tab-' + tabName).classList.add('active');
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            if(element) element.classList.add('active');
         }
 
-        // 2. MORA STATS (With Error Handling)
-        const stats = ['births', 'ante', 'post', 'complex', 'nipe', 'suture'];
-
+        // 2. MORA STATS LOGIC
         function loadStats() {
-            try {
-                stats.forEach(key => {
-                    const val = localStorage.getItem('mora_' + key) || 0;
-                    const el = document.getElementById('val-' + key);
-                    if (el) el.innerText = val;
-                });
-            } catch (e) { console.error("Storage load error", e); }
+            const stats = ['births', 'ante', 'post', 'nipe', 'suture'];
+            stats.forEach(key => {
+                const val = localStorage.getItem('mora_' + key) || 0;
+                const el = document.getElementById('val-' + key);
+                if(el) el.innerText = val;
+            });
         }
 
         function updateStat(key, change) {
-            try {
-                const currentEl = document.getElementById('val-' + key);
-                if (!currentEl) return;
-                
-                let currentVal = parseInt(currentEl.innerText) || 0;
-                let newVal = currentVal + change;
-                if (newVal < 0) newVal = 0;
-                
-                currentEl.innerText = newVal;
-                localStorage.setItem('mora_' + key, newVal);
-            } catch (e) { console.error("Storage save error", e); }
+            const el = document.getElementById('val-' + key);
+            let val = parseInt(el.innerText) || 0;
+            val += change;
+            if(val < 0) val = 0;
+            el.innerText = val;
+            localStorage.setItem('mora_' + key, val);
         }
 
-        // 3. MED FILTER
+        // 3. FORCE RESET (The Fixer)
+        function forceReset() {
+            if(confirm("This will reset the app and fix freezing issues. Continue?")) {
+                // Unregister Workers
+                if ('serviceWorker' in navigator) {
+                    navigator.serviceWorker.getRegistrations().then(function(registrations) {
+                        for(let registration of registrations) { registration.unregister(); }
+                    });
+                }
+                // Clear Cache
+                caches.keys().then(names => {
+                    for (let name of names) caches.delete(name);
+                });
+                // Reload
+                setTimeout(() => window.location.reload(true), 1000);
+            }
+        }
+
+        // 4. CALCULATORS
+        function calculateEDD() {
+            const lmpVal = document.getElementById('lmp').value;
+            if(!lmpVal) { alert("Enter LMP date"); return; }
+            const lmp = new Date(lmpVal);
+            const cycle = parseInt(document.getElementById('cycle').value) || 28;
+            const edd = new Date(lmp);
+            edd.setDate(edd.getDate() + 280 + (cycle - 28));
+            
+            const diff = Math.floor((new Date() - lmp) / (1000*60*60*24));
+            const w = Math.floor(diff/7);
+            const d = diff%7;
+
+            document.getElementById('edd-date-display').innerText = edd.toLocaleDateString();
+            document.getElementById('gestation-display').innerText = w + " w " + d + " d";
+            document.getElementById('edd-result').style.display = 'block';
+        }
+
+        function calculateBishop() {
+            const ids = ['bish-dilation', 'bish-efface', 'bish-station', 'bish-consist', 'bish-pos'];
+            let score = 0;
+            ids.forEach(id => score += parseInt(document.getElementById(id).value));
+            document.getElementById('bishop-score-display').innerText = score;
+            document.getElementById('bishop-interp').innerText = score > 5 ? "Favourable" : "Unfavourable";
+            document.getElementById('bishop-result').style.display = 'block';
+        }
+
         function filterMeds() {
-            try {
-                const input = document.getElementById('med-search');
-                const filter = input.value.toUpperCase();
-                const items = document.getElementsByClassName('med-item');
-                for (let i = 0; i < items.length; i++) {
-                    const txt = items[i].textContent || items[i].innerText;
-              
+            const term = document.getElementById('med-search').value.toUpperCase();
+            const items = document.querySelectorAll('.med-item');
+            items.forEach(item => {
+                const txt = item.innerText.toUpperCase();
+                item.style.display = txt.includes(term) ? "" : "none";
+            });
+        }
+
+        // 5. INITIALIZE
+        window.addEventListener('DOMContentLoaded', () => {
+            loadStats();
+            // Register SW with strict update checking
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('./sw.js').then(reg => {
+                    reg.update(); // Force check for update
+                });
+            }
+        });
+
+        // Error Catcher
+        window.onerror = function(msg, url, line) {
+            alert("App Error: " + msg + "\nLine: " + line + "\nTry the Reset button.");
+        };
+    </script>
+</body>
+</html>
