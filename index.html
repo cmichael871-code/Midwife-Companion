@@ -45,26 +45,11 @@
             justify-content: space-between;
         }
 
-        .header h1 {
-            margin: 0;
-            font-size: 1.25rem;
-            font-weight: 700;
-        }
-
-        .nhs-logo {
-            font-weight: 800;
-            font-style: italic;
-            border: 2px solid white;
-            padding: 0 4px;
-            font-size: 1.2rem;
-        }
+        .header h1 { margin: 0; font-size: 1.25rem; font-weight: 700; }
+        .nhs-logo { font-weight: 800; font-style: italic; border: 2px solid white; padding: 0 4px; font-size: 1.2rem; }
 
         /* CONTAINER */
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 16px;
-        }
+        .container { max-width: 600px; margin: 0 auto; padding: 16px; }
 
         /* CARDS */
         .card {
@@ -77,118 +62,62 @@
         }
 
         h2 {
-            margin-top: 0;
-            color: var(--nhs-blue);
-            font-size: 1.5rem;
-            border-bottom: 1px solid var(--card-border);
-            padding-bottom: 12px;
-            margin-bottom: 20px;
+            margin-top: 0; color: var(--nhs-blue); font-size: 1.5rem;
+            border-bottom: 1px solid var(--card-border); padding-bottom: 12px; margin-bottom: 20px;
         }
 
         /* FORMS */
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: var(--nhs-grey-1);
+        label { display: block; margin-bottom: 8px; font-weight: 600; color: var(--nhs-grey-1); }
+
+        input[type="date"], input[type="number"], input[type="text"], select {
+            width: 100%; padding: 10px; font-size: 16px;
+            border: 2px solid var(--nhs-grey-1); border-radius: 4px;
+            box-sizing: border-box; margin-bottom: 16px; background-color: var(--white);
         }
 
-        input[type="date"], input[type="number"], select {
-            width: 100%;
-            padding: 10px;
-            font-size: 16px;
-            border: 2px solid var(--nhs-grey-1);
-            border-radius: 4px;
-            box-sizing: border-box;
-            margin-bottom: 16px;
-            background-color: var(--white);
-        }
-
-        input:focus, select:focus {
-            outline: 3px solid var(--nhs-warm-yellow);
-            border-color: var(--nhs-blue);
-        }
+        input:focus, select:focus { outline: 3px solid var(--nhs-warm-yellow); border-color: var(--nhs-blue); }
 
         /* BUTTONS */
         .btn {
-            background-color: var(--nhs-green);
-            color: var(--white);
-            border: none;
-            padding: 12px 24px;
-            font-size: 1rem;
-            font-weight: 600;
-            border-radius: 4px;
-            cursor: pointer;
-            width: 100%;
-            text-align: center;
-            box-shadow: 0 4px 0 #006627;
+            background-color: var(--nhs-green); color: var(--white); border: none;
+            padding: 12px 24px; font-size: 1rem; font-weight: 600; border-radius: 4px;
+            cursor: pointer; width: 100%; text-align: center; box-shadow: 0 4px 0 #006627;
         }
+        .btn:active { box-shadow: none; transform: translateY(4px); }
 
-        .btn:active {
-            box-shadow: none;
-            transform: translateY(4px);
-        }
-
-        /* RESULTS */
+        /* RESULTS & DATA */
         .result-box {
-            margin-top: 16px;
-            padding: 16px;
-            background-color: #e6f3fa;
-            border-left: 8px solid var(--nhs-blue);
-            display: none;
+            margin-top: 16px; padding: 16px; background-color: #e6f3fa;
+            border-left: 8px solid var(--nhs-blue); display: none;
         }
+        .result-value { font-size: 1.25rem; font-weight: bold; color: var(--nhs-dark-blue); }
 
-        .result-value {
-            font-size: 1.25rem;
-            font-weight: bold;
-            color: var(--nhs-dark-blue);
+        /* MED LIST STYLES */
+        .med-item { padding: 12px 0; border-bottom: 1px solid #eee; }
+        .med-item:last-child { border-bottom: none; }
+        .med-name { color: var(--nhs-blue); font-weight: bold; font-size: 1.1rem; }
+        .med-desc { color: #444; font-size: 0.95rem; margin-top: 4px; }
+        .med-tag { 
+            display: inline-block; background: #eee; color: #555; 
+            font-size: 0.75rem; padding: 2px 6px; border-radius: 4px; margin-top: 4px; 
         }
 
         /* BOTTOM NAV */
         .nav-bar {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            background: var(--white);
-            border-top: 1px solid var(--card-border);
-            display: flex;
-            justify-content: space-around;
-            padding: 10px 0;
-            z-index: 100;
+            position: fixed; bottom: 0; width: 100%; background: var(--white);
+            border-top: 1px solid var(--card-border); display: flex;
+            justify-content: space-around; padding: 10px 0; z-index: 100;
         }
-
-        .nav-item {
-            text-align: center;
-            font-size: 0.8rem;
-            color: var(--nhs-blue);
-            cursor: pointer;
-            flex: 1;
-        }
-
-        .nav-item.active {
-            font-weight: bold;
-            border-bottom: 3px solid var(--nhs-blue);
-            margin-bottom: -10px;
-            padding-bottom: 7px;
-        }
+        .nav-item { text-align: center; font-size: 0.8rem; color: var(--nhs-blue); cursor: pointer; flex: 1; }
+        .nav-item.active { font-weight: bold; border-bottom: 3px solid var(--nhs-blue); margin-bottom: -10px; padding-bottom: 7px; }
 
         .tab-content { display: none; }
         .tab-content.active { display: block; }
-
-        /* REF TABLE */
-        .ref-table { width: 100%; border-collapse: collapse; }
-        .ref-table th, .ref-table td { text-align: left; padding: 12px; border-bottom: 1px solid var(--card-border); }
-        .ref-table th { color: var(--nhs-blue); }
         
         /* OFFLINE BANNER */
         #offline-status {
-            background: var(--nhs-warm-yellow);
-            color: #000;
-            text-align: center;
-            padding: 5px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            display: none;
+            background: var(--nhs-warm-yellow); color: #000; text-align: center;
+            padding: 5px; font-size: 0.8rem; font-weight: bold; display: none;
         }
     </style>
 </head>
@@ -199,7 +128,7 @@
         <div class="nhs-logo">NHS</div>
     </header>
     
-    <div id="offline-status">You are currently offline. App is fully functional.</div>
+    <div id="offline-status">You are currently offline.</div>
 
     <div class="container">
 
@@ -264,6 +193,73 @@
             </div>
         </div>
 
+        <div id="tab-meds" class="tab-content">
+            <div class="card">
+                <h2>Medication Index</h2>
+                <input type="text" id="med-search" onkeyup="filterMeds()" placeholder="Search drugs (e.g. 'PPH', 'Pain')...">
+                
+                <div id="med-list">
+                    <div class="med-item">
+                        <div class="med-name">Entonox</div>
+                        <div class="med-desc">Inhalation analgesia (Nitrous Oxide/Oxygen). Rapid onset/offset.</div>
+                        <div class="med-tag">Pain Relief</div>
+                    </div>
+                    <div class="med-item">
+                        <div class="med-name">Pethidine</div>
+                        <div class="med-desc">Opioid analgesic (IM). Can cause neonatal respiratory depression.</div>
+                        <div class="med-tag">Pain Relief</div>
+                    </div>
+                    <div class="med-item">
+                        <div class="med-name">Diamorphine</div>
+                        <div class="med-desc">Opioid analgesic (IM/IV). Stronger than Pethidine.</div>
+                        <div class="med-tag">Pain Relief</div>
+                    </div>
+                    
+                    <div class="med-item">
+                        <div class="med-name">Syntometrine</div>
+                        <div class="med-desc">IM injection for Active Management of 3rd Stage. (Oxytocin + Ergometrine). Avoid in hypertension.</div>
+                        <div class="med-tag">Third Stage</div>
+                    </div>
+                    <div class="med-item">
+                        <div class="med-name">Syntocinon (Oxytocin)</div>
+                        <div class="med-desc">IV infusion for IOL/Augmentation. IM/IV for 3rd Stage or PPH.</div>
+                        <div class="med-tag">Induction</div> <div class="med-tag">PPH</div>
+                    </div>
+                    <div class="med-item">
+                        <div class="med-name">Ergometrine</div>
+                        <div class="med-desc">IM/IV for PPH management. Causes strong sustained contraction.</div>
+                        <div class="med-tag">PPH</div>
+                    </div>
+                    <div class="med-item">
+                        <div class="med-name">Carboprost</div>
+                        <div class="med-desc">Deep IM for severe PPH when other measures fail. Caution in asthma.</div>
+                        <div class="med-tag">PPH</div>
+                    </div>
+                    <div class="med-item">
+                        <div class="med-name">Misoprostol</div>
+                        <div class="med-desc">Rectal/Sublingual for PPH. Vaginal/Oral for IOL.</div>
+                        <div class="med-tag">PPH</div> <div class="med-tag">Induction</div>
+                    </div>
+
+                    <div class="med-item">
+                        <div class="med-name">Vitamin K (Konakion)</div>
+                        <div class="med-desc">IM or Oral. Prevention of Vitamin K Deficiency Bleeding (VKDB).</div>
+                        <div class="med-tag">Neonatal</div>
+                    </div>
+                    <div class="med-item">
+                        <div class="med-name">Anti-D Immunoglobulin</div>
+                        <div class="med-desc">IM injection for RhD negative women to prevent Rhesus isoimmunisation.</div>
+                        <div class="med-tag">Antenatal</div> <div class="med-tag">Postnatal</div>
+                    </div>
+                    <div class="med-item">
+                        <div class="med-name">Lidocaine</div>
+                        <div class="med-desc">Local anaesthetic for perineal infiltration (suturing/episiotomy).</div>
+                        <div class="med-tag">Perineal Repair</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div id="tab-ref" class="tab-content">
             <div class="card">
                 <h2>Neonatal Vitals (Term)</h2>
@@ -280,9 +276,10 @@
     </div>
 
     <nav class="nav-bar">
-        <div class="nav-item active" onclick="switchTab('edd', this)">EDD Calc</div>
+        <div class="nav-item active" onclick="switchTab('edd', this)">EDD</div>
         <div class="nav-item" onclick="switchTab('bishop', this)">Bishop</div>
-        <div class="nav-item" onclick="switchTab('ref', this)">Reference</div>
+        <div class="nav-item" onclick="switchTab('meds', this)">Meds</div>
+        <div class="nav-item" onclick="switchTab('ref', this)">Ref</div>
     </nav>
 
     <script>
@@ -294,6 +291,24 @@
             element.classList.add('active');
         }
 
+        // MEDICATION FILTER
+        function filterMeds() {
+            const input = document.getElementById('med-search');
+            const filter = input.value.toUpperCase();
+            const list = document.getElementById('med-list');
+            const items = list.getElementsByClassName('med-item');
+
+            for (let i = 0; i < items.length; i++) {
+                const txtValue = items[i].textContent || items[i].innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    items[i].style.display = "";
+                } else {
+                    items[i].style.display = "none";
+                }
+            }
+        }
+
+        // CALCULATOR LOGIC (Same as before)
         function calculateEDD() {
             const lmpInput = document.getElementById('lmp').value;
             const cycleLength = parseInt(document.getElementById('cycle').value) || 28;
@@ -330,7 +345,7 @@
             document.getElementById('bishop-result').style.display = 'block';
         }
 
-        // SERVICE WORKER REGISTRATION (Logic for Offline)
+        // SERVICE WORKER REGISTRATION
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('./sw.js')
@@ -338,8 +353,6 @@
                     .catch(err => console.log('SW Fail', err));
             });
         }
-
-        // Offline Notification
         window.addEventListener('offline', () => { document.getElementById('offline-status').style.display = 'block'; });
         window.addEventListener('online', () => { document.getElementById('offline-status').style.display = 'none'; });
     </script>
