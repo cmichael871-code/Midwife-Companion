@@ -16,6 +16,7 @@
             --nhs-dark-blue: #003087;
             --nhs-green: #009639;
             --nhs-warm-yellow: #FFB81C;
+            --nhs-red: #D5281B;
             --nhs-grey-1: #4C6272;
             --nhs-grey-5: #F0F4F5;
             --card-border: #d8dde0;
@@ -93,14 +94,25 @@
         .result-value { font-size: 1.25rem; font-weight: bold; color: var(--nhs-dark-blue); }
 
         /* MED LIST STYLES */
-        .med-item { padding: 12px 0; border-bottom: 1px solid #eee; }
-        .med-item:last-child { border-bottom: none; }
-        .med-name { color: var(--nhs-blue); font-weight: bold; font-size: 1.1rem; }
-        .med-desc { color: #444; font-size: 0.95rem; margin-top: 4px; }
-        .med-tag { 
-            display: inline-block; background: #eee; color: #555; 
-            font-size: 0.75rem; padding: 2px 6px; border-radius: 4px; margin-top: 4px; 
+        .med-warning {
+            background-color: #fff5f5; border: 1px solid #fcbwbw; color: #cc0000;
+            padding: 10px; font-size: 0.85rem; border-radius: 4px; margin-bottom: 15px; font-weight: bold;
         }
+        .med-item { padding: 16px 0; border-bottom: 1px solid #eee; }
+        .med-item:last-child { border-bottom: none; }
+        .med-name { color: var(--nhs-blue); font-weight: bold; font-size: 1.15rem; }
+        .med-dose { font-weight: 600; color: #333; margin-top: 4px; font-size: 0.95rem; }
+        .med-desc { color: #555; font-size: 0.9rem; margin-top: 4px; line-height: 1.4; }
+        
+        .med-tag { 
+            display: inline-block; font-size: 0.75rem; padding: 3px 8px; 
+            border-radius: 12px; margin-top: 8px; font-weight: 600; margin-right: 5px;
+        }
+        .tag-pain { background: #e8f5e9; color: #2e7d32; }
+        .tag-emergency { background: #ffebee; color: #c62828; }
+        .tag-labour { background: #e3f2fd; color: #1565c0; }
+        .tag-gynae { background: #f3e5f5; color: #7b1fa2; }
+        .tag-anti { background: #fff3e0; color: #ef6c00; }
 
         /* BOTTOM NAV */
         .nav-bar {
@@ -114,7 +126,6 @@
         .tab-content { display: none; }
         .tab-content.active { display: block; }
         
-        /* OFFLINE BANNER */
         #offline-status {
             background: var(--nhs-warm-yellow); color: #000; text-align: center;
             padding: 5px; font-size: 0.8rem; font-weight: bold; display: none;
@@ -196,65 +207,126 @@
         <div id="tab-meds" class="tab-content">
             <div class="card">
                 <h2>Medication Index</h2>
-                <input type="text" id="med-search" onkeyup="filterMeds()" placeholder="Search drugs (e.g. 'PPH', 'Pain')...">
+                
+                <div class="med-warning">
+                    ⚠️ ALERT: Doses listed are standard BNF/NICE guides. ALWAYS check your local Trust Guidelines (PGDs) before administration.
+                </div>
+
+                <input type="text" id="med-search" onkeyup="filterMeds()" placeholder="Search (e.g. 'PPH', 'Anti-D', 'Nausea')...">
                 
                 <div id="med-list">
                     <div class="med-item">
-                        <div class="med-name">Entonox</div>
-                        <div class="med-desc">Inhalation analgesia (Nitrous Oxide/Oxygen). Rapid onset/offset.</div>
-                        <div class="med-tag">Pain Relief</div>
+                        <div class="med-name">Paracetamol</div>
+                        <div class="med-dose">Dose: 1g PO/IV every 4-6 hrs (Max 4g/24h)</div>
+                        <div class="med-desc">Mild to moderate pain, pyrexia. Caution: Low weight (&lt;50kg).</div>
+                        <span class="med-tag tag-pain">Analgesia</span>
+                    </div>
+                    <div class="med-item">
+                        <div class="med-name">Dihydrocodeine</div>
+                        <div class="med-dose">Dose: 30mg PO every 4-6 hrs (Max 180mg/24h)</div>
+                        <div class="med-desc">Moderate pain (postnatal). Avoid in breastfeeding if baby premature/apnoeic.</div>
+                        <span class="med-tag tag-pain">Analgesia</span>
                     </div>
                     <div class="med-item">
                         <div class="med-name">Pethidine</div>
-                        <div class="med-desc">Opioid analgesic (IM). Can cause neonatal respiratory depression.</div>
-                        <div class="med-tag">Pain Relief</div>
+                        <div class="med-dose">Dose: 50-100mg IM</div>
+                        <div class="med-desc">1st stage labour. Crosses placenta; may cause neonatal resp depression / drowsiness.</div>
+                        <span class="med-tag tag-pain">Analgesia</span>
                     </div>
                     <div class="med-item">
-                        <div class="med-name">Diamorphine</div>
-                        <div class="med-desc">Opioid analgesic (IM/IV). Stronger than Pethidine.</div>
-                        <div class="med-tag">Pain Relief</div>
+                        <div class="med-name">Entonox</div>
+                        <div class="med-dose">Dose: Inhaled 50:50 O2/N2O</div>
+                        <div class="med-desc">Self-administered. Rapid onset/offset. SE: Nausea, lightheadedness.</div>
+                        <span class="med-tag tag-pain">Analgesia</span>
                     </div>
-                    
+
+                    <div class="med-item">
+                        <div class="med-name">Syntocinon (Oxytocin) - 3rd Stage</div>
+                        <div class="med-dose">Dose: 10 IU IM or 5 IU IV (Slow)</div>
+                        <div class="med-desc">Active management of 3rd stage. Prevention/Treatment of PPH.</div>
+                        <span class="med-tag tag-labour">3rd Stage</span>
+                    </div>
                     <div class="med-item">
                         <div class="med-name">Syntometrine</div>
-                        <div class="med-desc">IM injection for Active Management of 3rd Stage. (Oxytocin + Ergometrine). Avoid in hypertension.</div>
-                        <div class="med-tag">Third Stage</div>
-                    </div>
-                    <div class="med-item">
-                        <div class="med-name">Syntocinon (Oxytocin)</div>
-                        <div class="med-desc">IV infusion for IOL/Augmentation. IM/IV for 3rd Stage or PPH.</div>
-                        <div class="med-tag">Induction</div> <div class="med-tag">PPH</div>
+                        <div class="med-dose">Dose: 1ml IM (5 IU Oxy + 500mcg Ergo)</div>
+                        <div class="med-desc">3rd Stage. Contraindicated in Hypertension/Pre-eclampsia. SE: Nausea/Vomiting.</div>
+                        <span class="med-tag tag-labour">3rd Stage</span>
                     </div>
                     <div class="med-item">
                         <div class="med-name">Ergometrine</div>
-                        <div class="med-desc">IM/IV for PPH management. Causes strong sustained contraction.</div>
-                        <div class="med-tag">PPH</div>
+                        <div class="med-dose">Dose: 500mcg IM or 250mcg IV (Emergency)</div>
+                        <div class="med-desc">PPH Management. Causes sustained tetanic contraction. C/I: Hypertension.</div>
+                        <span class="med-tag tag-emergency">PPH</span>
                     </div>
                     <div class="med-item">
-                        <div class="med-name">Carboprost</div>
-                        <div class="med-desc">Deep IM for severe PPH when other measures fail. Caution in asthma.</div>
-                        <div class="med-tag">PPH</div>
+                        <div class="med-name">Carboprost (Haemobate)</div>
+                        <div class="med-dose">Dose: 250mcg Deep IM (Rep q15m, Max 8 doses)</div>
+                        <div class="med-desc">Severe PPH. C/I: Asthma (causes bronchospasm).</div>
+                        <span class="med-tag tag-emergency">PPH</span>
                     </div>
                     <div class="med-item">
                         <div class="med-name">Misoprostol</div>
-                        <div class="med-desc">Rectal/Sublingual for PPH. Vaginal/Oral for IOL.</div>
-                        <div class="med-tag">PPH</div> <div class="med-tag">Induction</div>
+                        <div class="med-dose">Dose: PPH: 800mcg (Rectal/Sublingual). IOL: Varies (e.g. 25mcg).</div>
+                        <div class="med-desc">Prostaglandin analogue. Used for IOL or PPH when oxytocics unavailable/failed.</div>
+                        <span class="med-tag tag-emergency">PPH</span> <span class="med-tag tag-labour">Induction</span>
+                    </div>
+
+                    <div class="med-item">
+                        <div class="med-name">Labetalol</div>
+                        <div class="med-dose">Dose: 200mg PO (maintenance). IV for crisis.</div>
+                        <div class="med-desc">First line for PIH/Pre-eclampsia. C/I: Asthma.</div>
+                        <span class="med-tag tag-gynae">Hypertension</span>
+                    </div>
+                    <div class="med-item">
+                        <div class="med-name">Nifedipine (Modified Release)</div>
+                        <div class="med-dose">Dose: 10mg - 20mg PO (Never sublingual)</div>
+                        <div class="med-desc">Pre-eclampsia. Use if Labetalol contraindicated (Asthma).</div>
+                        <span class="med-tag tag-gynae">Hypertension</span>
+                    </div>
+
+                    <div class="med-item">
+                        <div class="med-name">Magnesium Sulphate</div>
+                        <div class="med-dose">Dose: 4g IV Loading Dose (over 5-15 min)</div>
+                        <div class="med-desc">Prevention/Treatment of Eclamptic seizures & Neuroprotection (Pre-term). Monitor reflexes/RR.</div>
+                        <span class="med-tag tag-emergency">Emergency</span>
+                    </div>
+                    <div class="med-item">
+                        <div class="med-name">Adrenaline 1:1000</div>
+                        <div class="med-dose">Dose: 500mcg (0.5ml) IM</div>
+                        <div class="med-desc">Anaphylaxis. Repeat every 5 mins if no improvement.</div>
+                        <span class="med-tag tag-emergency">Emergency</span>
+                    </div>
+
+                    <div class="med-item">
+                        <div class="med-name">Benzylpenicillin</div>
+                        <div class="med-dose">Dose: 3g IV Loading, then 1.5g q4h</div>
+                        <div class="med-desc">Intrapartum prophylaxis for Group B Strep (GBS).</div>
+                        <span class="med-tag tag-anti">Antibiotic</span>
+                    </div>
+                    <div class="med-item">
+                        <div class="med-name">Ondansetron</div>
+                        <div class="med-dose">Dose: 4mg IM/Slow IV</div>
+                        <div class="med-desc">Anti-emetic. Hyperemesis or labour nausea. Non-sedating.</div>
+                        <span class="med-tag tag-anti">Anti-emetic</span>
+                    </div>
+                    <div class="med-item">
+                        <div class="med-name">Cyclizine</div>
+                        <div class="med-dose">Dose: 50mg IM/IV/PO</div>
+                        <div class="med-desc">Anti-emetic. Commonly used with diamorphine/morphine. SE: Drowsiness.</div>
+                        <span class="med-tag tag-anti">Anti-emetic</span>
                     </div>
 
                     <div class="med-item">
                         <div class="med-name">Vitamin K (Konakion)</div>
-                        <div class="med-desc">IM or Oral. Prevention of Vitamin K Deficiency Bleeding (VKDB).</div>
-                        <div class="med-tag">Neonatal</div>
+                        <div class="med-dose">Dose: 1mg IM (Term) or Oral regimen</div>
+                        <div class="med-desc">Prevention of Vitamin K Deficiency Bleeding (VKDB). Consent required.</div>
+                        <span class="med-tag tag-labour">Neonatal</span>
                     </div>
                     <div class="med-item">
                         <div class="med-name">Anti-D Immunoglobulin</div>
-                        <div class="med-desc">IM injection for RhD negative women to prevent Rhesus isoimmunisation.</div>
-                        <div class="med-tag">Antenatal</div> <div class="med-tag">Postnatal</div>
-                    </div>
-                    <div class="med-item">
-                        <div class="med-name">Lidocaine</div>
-                        <div class="med-desc">Local anaesthetic for perineal infiltration (suturing/episiotomy).</div>
-                        <div class="med-tag">Perineal Repair</div>
+                        <div class="med-dose">Dose: 1500 IU (Standard Postnatal) or 500 IU (Antenatal events)</div>
+                        <div class="med-desc">RhD Negative women. Administer within 72hrs of sensitising event/delivery.</div>
+                        <span class="med-tag tag-gynae">Antenatal</span>
                     </div>
                 </div>
             </div>
@@ -308,7 +380,7 @@
             }
         }
 
-        // CALCULATOR LOGIC (Same as before)
+        // CALCULATOR LOGIC
         function calculateEDD() {
             const lmpInput = document.getElementById('lmp').value;
             const cycleLength = parseInt(document.getElementById('cycle').value) || 28;
@@ -328,33 +400,4 @@
             const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
             document.getElementById('edd-date-display').innerText = edd.toLocaleDateString('en-GB', options);
             document.getElementById('gestation-display').innerText = `${weeks} weeks + ${days} days`;
-            document.getElementById('edd-result').style.display = 'block';
-        }
-
-        function calculateBishop() {
-            const ids = ['bish-dilation', 'bish-efface', 'bish-station', 'bish-consist', 'bish-pos'];
-            let score = 0;
-            ids.forEach(id => score += parseInt(document.getElementById(id).value));
-            
-            let interpretation = "";
-            if (score <= 5) interpretation = "Unfavourable cervix (Induction likely required)";
-            else if (score >= 6) interpretation = "Favourable cervix";
-
-            document.getElementById('bishop-score-display').innerText = score;
-            document.getElementById('bishop-interp').innerText = interpretation;
-            document.getElementById('bishop-result').style.display = 'block';
-        }
-
-        // SERVICE WORKER REGISTRATION
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js')
-                    .then(reg => console.log('SW Registered'))
-                    .catch(err => console.log('SW Fail', err));
-            });
-        }
-        window.addEventListener('offline', () => { document.getElementById('offline-status').style.display = 'block'; });
-        window.addEventListener('online', () => { document.getElementById('offline-status').style.display = 'none'; });
-    </script>
-</body>
-</html>
+       
