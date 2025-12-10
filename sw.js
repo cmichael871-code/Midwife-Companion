@@ -1,5 +1,5 @@
-const CACHE_NAME = 'nhs-midwife-v2'; 
-// (I changed v1 to v2)
+const CACHE_NAME = 'nhs-midwife-v3'; 
+// (Changed v2 to v3)
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -39,4 +39,5 @@ self.addEventListener('activate', (event) => {
     })
   );
 });
+
 
