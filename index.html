@@ -57,28 +57,34 @@
         }
         h2 { margin-top: 0; color: var(--nhs-blue); font-size: 1.4rem; border-bottom: 1px solid var(--card-border); padding-bottom: 10px; margin-bottom: 15px; }
 
-        /* === NEW ACCORDION MED STYLES === */
+        /* === MED CARD STYLES === */
         details.med-card {
             border: 1px solid #eee; border-radius: 6px; margin-bottom: 10px;
-            background: white; overflow: hidden;
+            background: white; overflow: hidden; transition: all 0.2s ease;
         }
-        details.med-card[open] { border-color: var(--nhs-blue); box-shadow: 0 2px 8px rgba(0,94,184,0.15); }
+        details.med-card[open] { border-color: var(--nhs-blue); box-shadow: 0 4px 12px rgba(0,0,0,0.1); transform: scale(1.01); }
         
         summary.med-header {
             padding: 14px; font-weight: 700; color: var(--nhs-blue);
             cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center;
             background: #fff;
         }
-        summary.med-header::-webkit-details-marker { display: none; } /* Hide default arrow */
+        summary.med-header::-webkit-details-marker { display: none; }
         summary.med-header:after { content: '+'; font-size: 1.5rem; color: #ccc; font-weight: 300; }
         details[open] summary.med-header:after { content: '−'; color: var(--nhs-blue); }
 
-        .med-body { padding: 15px; background: #fdfdfd; border-top: 1px solid #eee; font-size: 0.95rem; line-height: 1.5; color: #333; }
+        .med-body { padding: 15px; background: #fdfdfd; border-top: 1px solid #eee; font-size: 0.95rem; line-height: 1.5; color: #333; position: relative; }
         .med-label { font-weight: 700; color: #555; display: block; margin-top: 10px; margin-bottom: 2px; }
         .med-label:first-child { margin-top: 0; }
         
         .med-dose-box { background: #e8f5e9; color: #005a00; padding: 8px; border-radius: 4px; font-weight: 600; margin: 5px 0 10px 0; border-left: 4px solid var(--nhs-green); }
         .med-alert-box { background: #ffebee; color: #b71c1c; padding: 8px; border-radius: 4px; margin-top: 8px; font-size: 0.9rem; border-left: 4px solid var(--nhs-red); }
+        
+        /* NEW CLOSE BUTTON INSIDE CARD */
+        .med-close-btn {
+            text-align: right; color: #999; font-size: 0.8rem; font-weight: bold;
+            margin-top: 10px; cursor: pointer; text-transform: uppercase;
+        }
 
         /* TAGS */
         .tag { font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; margin-left: 8px; text-transform: uppercase; font-weight: bold; letter-spacing: 0.5px; vertical-align: middle; }
@@ -90,23 +96,22 @@
         /* SEARCH BAR */
         .sticky-search { position: sticky; top: 70px; z-index: 90; background: var(--nhs-grey-5); padding-bottom: 10px; margin-top: -10px; }
         input[type="text"] { width: 100%; padding: 12px; font-size: 16px; border: 2px solid var(--nhs-grey-1); border-radius: 4px; box-sizing: border-box; }
-        input:focus { outline: 3px solid var(--nhs-warm-yellow); border-color: var(--nhs-blue); }
-
-        /* STATS COUNTER */
-        .stat-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #eee; }
-        .stat-btn { width: 44px; height: 44px; border-radius: 50%; border: none; font-size: 1.5rem; color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; touch-action: manipulation; }
-        .btn-minus { background: var(--nhs-red); } .btn-plus { background: var(--nhs-green); }
-        .stat-value { font-size: 1.25rem; font-weight: bold; min-width: 40px; text-align: center; }
-
+        
         /* NAV & GENERAL */
         .nav-bar { position: fixed; bottom: 0; left: 0; width: 100%; background: white; border-top: 1px solid var(--card-border); display: flex; justify-content: space-around; padding: 10px 0; z-index: 9999; padding-bottom: env(safe-area-inset-bottom); }
         .nav-item { text-align: center; font-size: 0.7rem; color: var(--nhs-blue); cursor: pointer; flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; }
         .nav-item.active { font-weight: bold; border-bottom: 3px solid var(--nhs-blue); margin-bottom: -10px; padding-bottom: 7px; }
         .nav-icon { font-size: 1.2rem; }
         .tab-content { display: none; } .tab-content.active { display: block; }
-
-        #reset-btn { background: #333; color: white; padding: 8px; text-align: center; margin-top: 30px; cursor: pointer; border-radius: 4px; font-size: 0.8rem; opacity: 0.7; }
+        
+        /* STATS & CALCS CSS (Collapsed for brevity) */
+        .stat-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #eee; }
+        .stat-btn { width: 44px; height: 44px; border-radius: 50%; border: none; font-size: 1.5rem; color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .btn-minus { background: var(--nhs-red); } .btn-plus { background: var(--nhs-green); }
+        .stat-value { font-size: 1.25rem; font-weight: bold; min-width: 40px; text-align: center; }
+        input[type="date"], input[type="number"], select { width: 100%; padding: 12px; border: 2px solid var(--nhs-grey-1); border-radius: 4px; margin-bottom: 10px; background: white; box-sizing: border-box;}
         .btn { width: 100%; padding: 14px; background: var(--nhs-green); color: white; border: none; font-weight: bold; border-radius: 4px; font-size: 1rem; margin-top: 10px; }
+        .result-box { margin-top: 16px; padding: 16px; background-color: #e6f3fa; border-left: 8px solid var(--nhs-blue); display: none; }
     </style>
 </head>
 <body>
@@ -120,7 +125,7 @@
 
         <div id="tab-meds" class="tab-content active">
             <div class="sticky-search">
-                <input type="text" id="med-search" onkeyup="filterMeds()" placeholder="Search drugs (e.g. 'PPH', 'Pain')...">
+                <input type="text" id="med-search" onkeyup="filterMeds()" placeholder="Search drugs...">
             </div>
 
             <h3 style="color:#666; font-size:0.9rem; text-transform:uppercase; margin-top:0;">Analgesia</h3>
@@ -131,6 +136,7 @@
                     <span class="med-label">Indication:</span> Mild-moderate pain, pyrexia.
                     <div class="med-dose-box">Dose: 1g every 4-6 hours (Max 4g in 24h)</div>
                     <div class="med-alert-box">Reduce dose if weight &lt;50kg or hepatic impairment.</div>
+                    <div class="med-close-btn" onclick="this.parentElement.parentElement.removeAttribute('open')">Close ✕</div>
                 </div>
             </details>
 
@@ -139,7 +145,8 @@
                 <div class="med-body">
                     <span class="med-label">Indication:</span> Moderate postnatal pain.
                     <div class="med-dose-box">Dose: 30mg every 4-6 hours</div>
-                    <div class="med-alert-box">Caution in breastfeeding (monitor baby for drowsiness). Avoid if baby premature/apnoeic.</div>
+                    <div class="med-alert-box">Caution in breastfeeding. Avoid if baby premature/apnoeic.</div>
+                    <div class="med-close-btn" onclick="this.parentElement.parentElement.removeAttribute('open')">Close ✕</div>
                 </div>
             </details>
 
@@ -148,33 +155,17 @@
                 <div class="med-body">
                     <span class="med-label">Indication:</span> 1st stage labour analgesia.
                     <div class="med-dose-box">Dose: 50-100mg IM</div>
-                    <div class="med-alert-box">Crosses placenta. Can cause neonatal resp depression and poor feeding. Have Naloxone available.</div>
-                </div>
-            </details>
-
-            <details class="med-card">
-                <summary class="med-header">Diamorphine <span class="tag tag-im">IM</span></summary>
-                <div class="med-body">
-                    <span class="med-label">Indication:</span> Strong labour analgesia.
-                    <div class="med-dose-box">Dose: 5-10mg IM</div>
-                    <div class="med-alert-box">Controlled Drug. Stronger euphoria/sedation than pethidine. Anti-emetic usually required.</div>
+                    <div class="med-alert-box">Crosses placenta. Monitor neonatal resp depression.</div>
+                    <div class="med-close-btn" onclick="this.parentElement.parentElement.removeAttribute('open')">Close ✕</div>
                 </div>
             </details>
 
             <details class="med-card">
                 <summary class="med-header">Entonox <span class="tag tag-po">INH</span></summary>
                 <div class="med-body">
-                    <span class="med-label">Indication:</span> Labour pain (Gas & Air).
+                    <span class="med-label">Indication:</span> Labour pain.
                     <div class="med-dose-box">Dose: 50:50 O2/N2O via mouthpiece</div>
-                    <span class="med-label">Notes:</span> Rapid onset/offset. Can cause dry mouth, nausea, lightheadedness.</div>
-            </details>
-
-            <details class="med-card">
-                <summary class="med-header">Lidocaine 1% <span class="tag tag-sc">SC</span></summary>
-                <div class="med-body">
-                    <span class="med-label">Indication:</span> Perineal infiltration (Suturing/Episiotomy).
-                    <div class="med-dose-box">Max: 20ml of 1% (200mg) usually safe limit</div>
-                    <div class="med-alert-box">Always aspirate before injecting to avoid intravascular injection.</div>
+                    <div class="med-close-btn" onclick="this.parentElement.parentElement.removeAttribute('open')">Close ✕</div>
                 </div>
             </details>
 
@@ -185,7 +176,8 @@
                 <div class="med-body">
                     <span class="med-label">Indication:</span> Active management of 3rd stage.
                     <div class="med-dose-box">Dose: 1 ampoule (1ml) IM</div>
-                    <div class="med-alert-box">⛔ CONTRAINDICATED in Hypertension / Pre-eclampsia (Contains Ergometrine).</div>
+                    <div class="med-alert-box">⛔ CONTRAINDICATED in Hypertension / Pre-eclampsia.</div>
+                    <div class="med-close-btn" onclick="this.parentElement.parentElement.removeAttribute('open')">Close ✕</div>
                 </div>
             </details>
 
@@ -195,33 +187,36 @@
                     <span class="med-label">Indication:</span> 3rd Stage or IOL.
                     <div class="med-dose-box">3rd Stage: 10 IU IM or 5 IU IV (Slow)</div>
                     <div class="med-dose-box">IOL: IV Infusion (Variable rate)</div>
+                    <div class="med-close-btn" onclick="this.parentElement.parentElement.removeAttribute('open')">Close ✕</div>
                 </div>
             </details>
 
             <details class="med-card">
                 <summary class="med-header">Ergometrine <span class="tag tag-im">IM</span> <span class="tag tag-iv">IV</span></summary>
                 <div class="med-body">
-                    <span class="med-label">Indication:</span> Treatment of PPH (atonic uterus).
+                    <span class="med-label">Indication:</span> PPH (atonic uterus).
                     <div class="med-dose-box">Dose: 500mcg IM or 250mcg IV (Slow)</div>
-                    <div class="med-alert-box">Causes strong, sustained contraction. Nausea/Vomiting common. C/I in Hypertension.</div>
+                    <div class="med-alert-box">C/I in Hypertension.</div>
+                    <div class="med-close-btn" onclick="this.parentElement.parentElement.removeAttribute('open')">Close ✕</div>
                 </div>
             </details>
 
             <details class="med-card">
                 <summary class="med-header">Carboprost <span class="tag tag-im">IM</span></summary>
                 <div class="med-body">
-                    <span class="med-label">Indication:</span> Severe PPH refractory to other agents.
-                    <div class="med-dose-box">Dose: 250mcg Deep IM. Repeat q15min (Max 8 doses)</div>
-                    <div class="med-alert-box">⛔ C/I in Asthma (Causes bronchospasm). Side effect: Severe Diarrhoea.</div>
+                    <span class="med-label">Indication:</span> Severe PPH.
+                    <div class="med-dose-box">Dose: 250mcg Deep IM. Repeat q15min (Max 8).</div>
+                    <div class="med-alert-box">⛔ C/I in Asthma. Side effect: Diarrhoea.</div>
+                    <div class="med-close-btn" onclick="this.parentElement.parentElement.removeAttribute('open')">Close ✕</div>
                 </div>
             </details>
 
             <details class="med-card">
                 <summary class="med-header">Misoprostol <span class="tag tag-po">PR</span> <span class="tag tag-po">PO</span></summary>
                 <div class="med-body">
-                    <span class="med-label">Indication:</span> PPH treatment or IOL.
-                    <div class="med-dose-box">PPH: 800-1000mcg Rectally (PR) or Sublingual</div>
-                    <div class="med-dose-box">IOL: 25mcg Vaginal/Oral (Low dose!)</div>
+                    <span class="med-label">Indication:</span> PPH or IOL.
+                    <div class="med-dose-box">PPH: 800-1000mcg PR/SL</div>
+                    <div class="med-close-btn" onclick="this.parentElement.parentElement.removeAttribute('open')">Close ✕</div>
                 </div>
             </details>
 
@@ -231,34 +226,19 @@
                 <summary class="med-header">Labetalol <span class="tag tag-po">PO</span> <span class="tag tag-iv">IV</span></summary>
                 <div class="med-body">
                     <span class="med-label">Indication:</span> Hypertension / Pre-eclampsia.
-                    <div class="med-dose-box">PO: 200mg (Adjust as per protocol)</div>
-                    <div class="med-alert-box">⛔ C/I in Asthma. Monitor BP/Pulse.</div>
-                </div>
-            </details>
-
-            <details class="med-card">
-                <summary class="med-header">Nifedipine (MR) <span class="tag tag-po">PO</span></summary>
-                <div class="med-body">
-                    <span class="med-label">Indication:</span> Hypertension (Second line or if Asthmatic).
-                    <div class="med-dose-box">Dose: 10mg - 20mg Modified Release</div>
-                    <div class="med-alert-box">Never give Sublingually (Risk of stroke from rapid BP drop).</div>
+                    <div class="med-dose-box">PO: 200mg (Adjust per protocol)</div>
+                    <div class="med-alert-box">⛔ C/I in Asthma.</div>
+                    <div class="med-close-btn" onclick="this.parentElement.parentElement.removeAttribute('open')">Close ✕</div>
                 </div>
             </details>
 
             <details class="med-card">
                 <summary class="med-header">Magnesium Sulphate <span class="tag tag-iv">IV</span></summary>
                 <div class="med-body">
-                    <span class="med-label">Indication:</span> Prevent/Treat Eclampsia & Neuroprotection (Pre-term).
+                    <span class="med-label">Indication:</span> Eclampsia & Neuroprotection.
                     <div class="med-dose-box">Loading: 4g IV over 5-15 mins</div>
-                    <div class="med-alert-box">Monitor: Resp Rate (&lt;12), Reflexes (Loss), Urine Output (&lt;30ml/hr). Antidote: Calcium Gluconate.</div>
-                </div>
-            </details>
-
-            <details class="med-card">
-                <summary class="med-header">Calcium Gluconate <span class="tag tag-iv">IV</span></summary>
-                <div class="med-body">
-                    <span class="med-label">Indication:</span> Magnesium Toxicity Antidote.
-                    <div class="med-dose-box">Dose: 1g (10ml of 10%) IV over 10 mins</div>
+                    <div class="med-alert-box">Monitor RR, Reflexes. Antidote: Calcium Gluconate.</div>
+                    <div class="med-close-btn" onclick="this.parentElement.parentElement.removeAttribute('open')">Close ✕</div>
                 </div>
             </details>
 
@@ -266,80 +246,71 @@
                 <summary class="med-header">Adrenaline 1:1000 <span class="tag tag-im">IM</span></summary>
                 <div class="med-body">
                     <span class="med-label">Indication:</span> Anaphylaxis.
-                    <div class="med-dose-box">Dose: 500mcg (0.5ml) IM Anterolateral thigh</div>
-                    <div class="med-alert-box">Repeat every 5 mins if no improvement. Call 2222.</div>
+                    <div class="med-dose-box">Dose: 500mcg (0.5ml) IM</div>
+                    <div class="med-close-btn" onclick="this.parentElement.parentElement.removeAttribute('open')">Close ✕</div>
                 </div>
             </details>
 
-            <h3 style="color:#666; font-size:0.9rem; text-transform:uppercase; margin-top:20px;">Anti-Emetics</h3>
+            <h3 style="color:#666; font-size:0.9rem; text-transform:uppercase; margin-top:20px;">Other</h3>
 
             <details class="med-card">
-                <summary class="med-header">Cyclizine <span class="tag tag-im">IM</span> <span class="tag tag-iv">IV</span></summary>
+                <summary class="med-header">Anti-D Ig <span class="tag tag-im">IM</span></summary>
                 <div class="med-body">
-                    <span class="med-label">Indication:</span> Nausea/Vomiting (Opioid induced).
-                    <div class="med-dose-box">Dose: 50mg IM or slow IV</div>
-                    <div class="med-alert-box">Painful on IV injection. Can cause drowsiness.</div>
+                    <span class="med-label">Indication:</span> RhD Negative prophylaxis.
+                    <div class="med-dose-box">Dose: 1500 IU (Postnatal) / 500 IU (Events)</div>
+                    <div class="med-close-btn" onclick="this.parentElement.parentElement.removeAttribute('open')">Close ✕</div>
+                </div>
+            </details>
+            
+            <details class="med-card">
+                <summary class="med-header">Vitamin K <span class="tag tag-im">IM</span> <span class="tag tag-po">PO</span></summary>
+                <div class="med-body">
+                    <span class="med-label">Indication:</span> VKDB Prevention.
+                    <div class="med-dose-box">IM: 1mg (Term)</div>
+                    <div class="med-close-btn" onclick="this.parentElement.parentElement.removeAttribute('open')">Close ✕</div>
                 </div>
             </details>
 
-            <details class="med-card">
-                <summary class="med-header">Ondansetron <span class="tag tag-im">IM</span> <span class="tag tag-iv">IV</span></summary>
-                <div class="med-body">
-                    <span class="med-label">Indication:</span> Hyperemesis / Post-op nausea.
-                    <div class="med-dose-box">Dose: 4mg IM or slow IV</div>
-                    <div class="med-alert-box">Avoid in 1st Trimester if possible (small cleft risk). Non-sedating.</div>
-                </div>
-            </details>
+             <div id="reset-btn" onclick="forceReset()">⚠️ Fix App / Reset</div>
+        </div>
 
-            <details class="med-card">
-                <summary class="med-header">Metoclopramide <span class="tag tag-im">IM</span> <span class="tag tag-iv">IV</span></summary>
-                <div class="med-body">
-                    <span class="med-label">Indication:</span> Nausea / Lactation stimulation.
-                    <div class="med-dose-box">Dose: 10mg IM/IV</div>
-                    <div class="med-alert-box">Risk of Oculogyric Crisis (esp. young women). Avoid &lt;20 years age.</div>
-                </div>
-            </details>
+        <div id="tab-mora" class="tab-content">
+            <div class="card">
+                <h2>MORA Progress</h2>
+                <div class="stat-row"><div class="stat-label">Births (40)</div><div class="stat-controls"><button class="stat-btn btn-minus" onclick="updateStat('births',-1)">-</button><div class="stat-value" id="val-births">0</div><button class="stat-btn btn-plus" onclick="updateStat('births',1)">+</button></div></div>
+                <div class="stat-row"><div class="stat-label">Antenatal (100)</div><div class="stat-controls"><button class="stat-btn btn-minus" onclick="updateStat('ante',-1)">-</button><div class="stat-value" id="val-ante">0</div><button class="stat-btn btn-plus" onclick="updateStat('ante',1)">+</button></div></div>
+                <div class="stat-row"><div class="stat-label">Postnatal (100)</div><div class="stat-controls"><button class="stat-btn btn-minus" onclick="updateStat('post',-1)">-</button><div class="stat-value" id="val-post">0</div><button class="stat-btn btn-plus" onclick="updateStat('post',1)">+</button></div></div>
+                <div class="stat-row"><div class="stat-label">NIPE</div><div class="stat-controls"><button class="stat-btn btn-minus" onclick="updateStat('nipe',-1)">-</button><div class="stat-value" id="val-nipe">0</div><button class="stat-btn btn-plus" onclick="updateStat('nipe',1)">+</button></div></div>
+                <div class="stat-row"><div class="stat-label">Suturing</div><div class="stat-controls"><button class="stat-btn btn-minus" onclick="updateStat('suture',-1)">-</button><div class="stat-value" id="val-suture">0</div><button class="stat-btn btn-plus" onclick="updateStat('suture',1)">+</button></div></div>
+            </div>
+        </div>
 
-            <h3 style="color:#666; font-size:0.9rem; text-transform:uppercase; margin-top:20px;">Antibiotics / Others</h3>
+        <div id="tab-edd" class="tab-content">
+            <div class="card">
+                <h2>EDD Calculator</h2>
+                <label>LMP Date</label><input type="date" id="lmp">
+                <label>Cycle</label><input type="number" id="cycle" value="28">
+                <button class="btn" onclick="calculateEDD()">Calculate</button>
+                <div id="edd-result" class="result-box"><div>EDD: <span class="result-value" id="edd-date-display">--</span></div><div>Gestation: <span id="gestation-display">--</span></div></div>
+            </div>
+        </div>
 
-            <details class="med-card">
-                <summary class="med-header">Benzylpenicillin <span class="tag tag-iv">IV</span></summary>
-                <div class="med-body">
-                    <span class="med-label">Indication:</span> GBS Prophylaxis in labour.
-                    <div class="med-dose-box">Load: 3g IV. Maint: 1.5g IV q4h until birth</div>
-                    <div class="med-alert-box">Check Allergy status! If Penicillin allergic, usually Clindamycin or Vancomycin.</div>
-                </div>
-            </details>
+        <div id="tab-bishop" class="tab-content">
+            <div class="card">
+                <h2>Bishop Score</h2>
+                <label>Dilation</label><select id="bish-dilation"><option value="0">0</option><option value="1">1-2</option><option value="2">3-4</option><option value="3">5+</option></select>
+                <label>Effacement</label><select id="bish-efface"><option value="0">0-30%</option><option value="1">40-50%</option><option value="2">60-70%</option><option value="3">80%+</option></select>
+                <label>Station</label><select id="bish-station"><option value="0">-3</option><option value="1">-2</option><option value="2">-1/0</option><option value="3">+1/+</option></select>
+                <label>Consistency</label><select id="bish-consist"><option value="0">Firm</option><option value="1">Med</option><option value="2">Soft</option></select>
+                <label>Position</label><select id="bish-pos"><option value="0">Post</option><option value="1">Mid</option><option value="2">Ant</option></select>
+                <button class="btn" onclick="calculateBishop()">Score</button>
+                <div id="bishop-result" class="result-box">Score: <span class="result-value" id="bishop-score-display">0</span> <div id="bishop-interp"></div></div>
+            </div>
+        </div>
 
-            <details class="med-card">
-                <summary class="med-header">Gentamicin <span class="tag tag-iv">IV</span></summary>
-                <div class="med-body">
-                    <span class="med-label">Indication:</span> Sepsis (Red Flag) / Chorioamnionitis.
-                    <div class="med-dose-box">Dose: 5mg/kg (Check local trust weight tables)</div>
-                    <div class="med-alert-box">Ototoxic/Nephrotoxic. Usually single dose in labour.</div>
-                </div>
-            </details>
+    </div>
 
-            <details class="med-card">
-                <summary class="med-header">Metronidazole <span class="tag tag-iv">IV</span> <span class="tag tag-po">PO</span></summary>
-                <div class="med-body">
-                    <span class="med-label">Indication:</span> Anaerobic infections / Sepsis / Trichomoniasis.
-                    <div class="med-dose-box">Dose: 500mg IV TDS or 400mg PO TDS</div>
-                </div>
-            </details>
-
-            <details class="med-card">
-                <summary class="med-header">Daltheparin/Enoxaparin <span class="tag tag-sc">SC</span></summary>
-                <div class="med-body">
-                    <span class="med-label">Indication:</span> VTE Prophylaxis (LMWH).
-                    <div class="med-dose-box">Dose: Weight dependent (e.g. 5000 units / 40mg)</div>
-                    <div class="med-alert-box">Avoid epidural/spinal for 12h after dose (prophylactic) or 24h (treatment).</div>
-                </div>
-            </details>
-
-            <details class="med-card">
-                <summary class="med-header">Iron (Ferrous Sulphate) <span class="tag tag-po">PO</span></summary>
-                <div class="med-body">
-                    <span class="med-label">Indication:</span> Iron Deficiency Anaemia.
-                    <div class="med-dose-box">Dose: 200mg OD or BD</div>
-                    <div class="med-alert-box">Take 
+    <nav class="nav-bar">
+        <div class="nav-item active" onclick="switchTab('meds', this)"><span class="nav-icon">💊</span>Meds</div>
+        <div class="nav-item" onclick="switchTab('mora', this)"><span class="nav-icon">📊</span>MORA</div>
+        <div class="nav-it
