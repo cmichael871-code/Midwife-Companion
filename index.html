@@ -27,7 +27,7 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--nhs-grey-5);
             margin: 0;
-            padding-bottom: 80px;
+            padding-bottom: 90px; /* Extra space for Nav */
             color: #231f20;
             -webkit-tap-highlight-color: transparent;
         }
@@ -67,18 +67,37 @@
             border-bottom: 1px solid var(--card-border); padding-bottom: 12px; margin-bottom: 20px;
         }
 
-        /* FORMS */
+        /* MORA STATS COUNTER STYLES */
+        .stat-row {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 0; border-bottom: 1px solid #eee;
+        }
+        .stat-row:last-child { border-bottom: none; }
+        
+        .stat-label { font-weight: bold; color: var(--nhs-blue); flex: 1; }
+        
+        .stat-controls { display: flex; align-items: center; gap: 15px; }
+        
+        .stat-btn {
+            width: 40px; height: 40px; border-radius: 50%; border: none;
+            font-size: 1.5rem; color: white; cursor: pointer; display: flex;
+            align-items: center; justify-content: center;
+            box-shadow: 0 2px 0 rgba(0,0,0,0.2);
+        }
+        .btn-minus { background-color: var(--nhs-red); }
+        .btn-plus { background-color: var(--nhs-green); }
+        .stat-value { font-size: 1.25rem; font-weight: bold; width: 40px; text-align: center; }
+
+        /* FORMS & MEDS STYLES */
         label { display: block; margin-bottom: 8px; font-weight: 600; color: var(--nhs-grey-1); }
 
-        input[type="date"], input[type="number"], input[type="text"], select {
+        input, select {
             width: 100%; padding: 10px; font-size: 16px;
             border: 2px solid var(--nhs-grey-1); border-radius: 4px;
             box-sizing: border-box; margin-bottom: 16px; background-color: var(--white);
         }
-
         input:focus, select:focus { outline: 3px solid var(--nhs-warm-yellow); border-color: var(--nhs-blue); }
 
-        /* BUTTONS */
         .btn {
             background-color: var(--nhs-green); color: var(--white); border: none;
             padding: 12px 24px; font-size: 1rem; font-weight: 600; border-radius: 4px;
@@ -86,24 +105,20 @@
         }
         .btn:active { box-shadow: none; transform: translateY(4px); }
 
-        /* RESULTS & DATA */
         .result-box {
             margin-top: 16px; padding: 16px; background-color: #e6f3fa;
             border-left: 8px solid var(--nhs-blue); display: none;
         }
         .result-value { font-size: 1.25rem; font-weight: bold; color: var(--nhs-dark-blue); }
 
-        /* MED LIST STYLES */
         .med-warning {
             background-color: #fff5f5; border: 1px solid #fcbwbw; color: #cc0000;
             padding: 10px; font-size: 0.85rem; border-radius: 4px; margin-bottom: 15px; font-weight: bold;
         }
         .med-item { padding: 16px 0; border-bottom: 1px solid #eee; }
-        .med-item:last-child { border-bottom: none; }
         .med-name { color: var(--nhs-blue); font-weight: bold; font-size: 1.15rem; }
         .med-dose { font-weight: 600; color: #333; margin-top: 4px; font-size: 0.95rem; }
         .med-desc { color: #555; font-size: 0.9rem; margin-top: 4px; line-height: 1.4; }
-        
         .med-tag { 
             display: inline-block; font-size: 0.75rem; padding: 3px 8px; 
             border-radius: 12px; margin-top: 8px; font-weight: 600; margin-right: 5px;
@@ -114,13 +129,14 @@
         .tag-gynae { background: #f3e5f5; color: #7b1fa2; }
         .tag-anti { background: #fff3e0; color: #ef6c00; }
 
-        /* BOTTOM NAV */
+        /* NAV BAR */
         .nav-bar {
             position: fixed; bottom: 0; width: 100%; background: var(--white);
             border-top: 1px solid var(--card-border); display: flex;
             justify-content: space-around; padding: 10px 0; z-index: 100;
         }
-        .nav-item { text-align: center; font-size: 0.8rem; color: var(--nhs-blue); cursor: pointer; flex: 1; }
+        .nav-item { text-align: center; font-size: 0.7rem; color: var(--nhs-blue); cursor: pointer; flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px;}
+        .nav-icon { font-size: 1.2rem; display: block; }
         .nav-item.active { font-weight: bold; border-bottom: 3px solid var(--nhs-blue); margin-bottom: -10px; padding-bottom: 7px; }
 
         .tab-content { display: none; }
@@ -143,7 +159,68 @@
 
     <div class="container">
 
-        <div id="tab-edd" class="tab-content active">
+        <div id="tab-mora" class="tab-content active">
+            <div class="card">
+                <h2>MORA Progress (EU Directives)</h2>
+                <div style="font-size:0.9rem; color:#666; margin-bottom:20px;">Tally counts are saved automatically to this device.</div>
+                
+                <div class="stat-row">
+                    <div class="stat-label">Births (40)</div>
+                    <div class="stat-controls">
+                        <button class="stat-btn btn-minus" onclick="updateStat('births', -1)">-</button>
+                        <div class="stat-value" id="val-births">0</div>
+                        <button class="stat-btn btn-plus" onclick="updateStat('births', 1)">+</button>
+                    </div>
+                </div>
+
+                <div class="stat-row">
+                    <div class="stat-label">Antenatal Exams (100)</div>
+                    <div class="stat-controls">
+                        <button class="stat-btn btn-minus" onclick="updateStat('ante', -1)">-</button>
+                        <div class="stat-value" id="val-ante">0</div>
+                        <button class="stat-btn btn-plus" onclick="updateStat('ante', 1)">+</button>
+                    </div>
+                </div>
+
+                <div class="stat-row">
+                    <div class="stat-label">Postnatal Exams (100)</div>
+                    <div class="stat-controls">
+                        <button class="stat-btn btn-minus" onclick="updateStat('post', -1)">-</button>
+                        <div class="stat-value" id="val-post">0</div>
+                        <button class="stat-btn btn-plus" onclick="updateStat('post', 1)">+</button>
+                    </div>
+                </div>
+
+                <div class="stat-row">
+                    <div class="stat-label">Complex Care / High Risk</div>
+                    <div class="stat-controls">
+                        <button class="stat-btn btn-minus" onclick="updateStat('complex', -1)">-</button>
+                        <div class="stat-value" id="val-complex">0</div>
+                        <button class="stat-btn btn-plus" onclick="updateStat('complex', 1)">+</button>
+                    </div>
+                </div>
+
+                <div class="stat-row">
+                    <div class="stat-label">NIPE (Newborn Exam)</div>
+                    <div class="stat-controls">
+                        <button class="stat-btn btn-minus" onclick="updateStat('nipe', -1)">-</button>
+                        <div class="stat-value" id="val-nipe">0</div>
+                        <button class="stat-btn btn-plus" onclick="updateStat('nipe', 1)">+</button>
+                    </div>
+                </div>
+
+                <div class="stat-row">
+                    <div class="stat-label">Suturing (Perineal Repair)</div>
+                    <div class="stat-controls">
+                        <button class="stat-btn btn-minus" onclick="updateStat('suture', -1)">-</button>
+                        <div class="stat-value" id="val-suture">0</div>
+                        <button class="stat-btn btn-plus" onclick="updateStat('suture', 1)">+</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab-edd" class="tab-content">
             <div class="card">
                 <h2>EDD Calculator</h2>
                 <label for="lmp">First day of LMP</label>
@@ -207,155 +284,59 @@
         <div id="tab-meds" class="tab-content">
             <div class="card">
                 <h2>Medication Index</h2>
-                
-                <div class="med-warning">
-                    ⚠️ ALERT: Doses listed are standard BNF/NICE guides. ALWAYS check your local Trust Guidelines (PGDs) before administration.
-                </div>
-
-                <input type="text" id="med-search" onkeyup="filterMeds()" placeholder="Search (e.g. 'PPH', 'Anti-D', 'Nausea')...">
-                
+                <div class="med-warning">⚠️ ALWAYS check your local Trust Guidelines (PGDs) & BNF before administration.</div>
+                <input type="text" id="med-search" onkeyup="filterMeds()" placeholder="Search (e.g. 'PPH', 'Anti-D')...">
                 <div id="med-list">
-                    <div class="med-item">
-                        <div class="med-name">Paracetamol</div>
-                        <div class="med-dose">Dose: 1g PO/IV every 4-6 hrs (Max 4g/24h)</div>
-                        <div class="med-desc">Mild to moderate pain, pyrexia. Caution: Low weight (&lt;50kg).</div>
-                        <span class="med-tag tag-pain">Analgesia</span>
-                    </div>
-                    <div class="med-item">
-                        <div class="med-name">Dihydrocodeine</div>
-                        <div class="med-dose">Dose: 30mg PO every 4-6 hrs (Max 180mg/24h)</div>
-                        <div class="med-desc">Moderate pain (postnatal). Avoid in breastfeeding if baby premature/apnoeic.</div>
-                        <span class="med-tag tag-pain">Analgesia</span>
-                    </div>
-                    <div class="med-item">
-                        <div class="med-name">Pethidine</div>
-                        <div class="med-dose">Dose: 50-100mg IM</div>
-                        <div class="med-desc">1st stage labour. Crosses placenta; may cause neonatal resp depression / drowsiness.</div>
-                        <span class="med-tag tag-pain">Analgesia</span>
-                    </div>
-                    <div class="med-item">
-                        <div class="med-name">Entonox</div>
-                        <div class="med-dose">Dose: Inhaled 50:50 O2/N2O</div>
-                        <div class="med-desc">Self-administered. Rapid onset/offset. SE: Nausea, lightheadedness.</div>
-                        <span class="med-tag tag-pain">Analgesia</span>
-                    </div>
-
-                    <div class="med-item">
-                        <div class="med-name">Syntocinon (Oxytocin) - 3rd Stage</div>
-                        <div class="med-dose">Dose: 10 IU IM or 5 IU IV (Slow)</div>
-                        <div class="med-desc">Active management of 3rd stage. Prevention/Treatment of PPH.</div>
-                        <span class="med-tag tag-labour">3rd Stage</span>
-                    </div>
-                    <div class="med-item">
-                        <div class="med-name">Syntometrine</div>
-                        <div class="med-dose">Dose: 1ml IM (5 IU Oxy + 500mcg Ergo)</div>
-                        <div class="med-desc">3rd Stage. Contraindicated in Hypertension/Pre-eclampsia. SE: Nausea/Vomiting.</div>
-                        <span class="med-tag tag-labour">3rd Stage</span>
-                    </div>
-                    <div class="med-item">
-                        <div class="med-name">Ergometrine</div>
-                        <div class="med-dose">Dose: 500mcg IM or 250mcg IV (Emergency)</div>
-                        <div class="med-desc">PPH Management. Causes sustained tetanic contraction. C/I: Hypertension.</div>
-                        <span class="med-tag tag-emergency">PPH</span>
-                    </div>
-                    <div class="med-item">
-                        <div class="med-name">Carboprost (Haemobate)</div>
-                        <div class="med-dose">Dose: 250mcg Deep IM (Rep q15m, Max 8 doses)</div>
-                        <div class="med-desc">Severe PPH. C/I: Asthma (causes bronchospasm).</div>
-                        <span class="med-tag tag-emergency">PPH</span>
-                    </div>
-                    <div class="med-item">
-                        <div class="med-name">Misoprostol</div>
-                        <div class="med-dose">Dose: PPH: 800mcg (Rectal/Sublingual). IOL: Varies (e.g. 25mcg).</div>
-                        <div class="med-desc">Prostaglandin analogue. Used for IOL or PPH when oxytocics unavailable/failed.</div>
-                        <span class="med-tag tag-emergency">PPH</span> <span class="med-tag tag-labour">Induction</span>
-                    </div>
-
-                    <div class="med-item">
-                        <div class="med-name">Labetalol</div>
-                        <div class="med-dose">Dose: 200mg PO (maintenance). IV for crisis.</div>
-                        <div class="med-desc">First line for PIH/Pre-eclampsia. C/I: Asthma.</div>
-                        <span class="med-tag tag-gynae">Hypertension</span>
-                    </div>
-                    <div class="med-item">
-                        <div class="med-name">Nifedipine (Modified Release)</div>
-                        <div class="med-dose">Dose: 10mg - 20mg PO (Never sublingual)</div>
-                        <div class="med-desc">Pre-eclampsia. Use if Labetalol contraindicated (Asthma).</div>
-                        <span class="med-tag tag-gynae">Hypertension</span>
-                    </div>
-
-                    <div class="med-item">
-                        <div class="med-name">Magnesium Sulphate</div>
-                        <div class="med-dose">Dose: 4g IV Loading Dose (over 5-15 min)</div>
-                        <div class="med-desc">Prevention/Treatment of Eclamptic seizures & Neuroprotection (Pre-term). Monitor reflexes/RR.</div>
-                        <span class="med-tag tag-emergency">Emergency</span>
-                    </div>
-                    <div class="med-item">
-                        <div class="med-name">Adrenaline 1:1000</div>
-                        <div class="med-dose">Dose: 500mcg (0.5ml) IM</div>
-                        <div class="med-desc">Anaphylaxis. Repeat every 5 mins if no improvement.</div>
-                        <span class="med-tag tag-emergency">Emergency</span>
-                    </div>
-
-                    <div class="med-item">
-                        <div class="med-name">Benzylpenicillin</div>
-                        <div class="med-dose">Dose: 3g IV Loading, then 1.5g q4h</div>
-                        <div class="med-desc">Intrapartum prophylaxis for Group B Strep (GBS).</div>
-                        <span class="med-tag tag-anti">Antibiotic</span>
-                    </div>
-                    <div class="med-item">
-                        <div class="med-name">Ondansetron</div>
-                        <div class="med-dose">Dose: 4mg IM/Slow IV</div>
-                        <div class="med-desc">Anti-emetic. Hyperemesis or labour nausea. Non-sedating.</div>
-                        <span class="med-tag tag-anti">Anti-emetic</span>
-                    </div>
-                    <div class="med-item">
-                        <div class="med-name">Cyclizine</div>
-                        <div class="med-dose">Dose: 50mg IM/IV/PO</div>
-                        <div class="med-desc">Anti-emetic. Commonly used with diamorphine/morphine. SE: Drowsiness.</div>
-                        <span class="med-tag tag-anti">Anti-emetic</span>
-                    </div>
-
-                    <div class="med-item">
-                        <div class="med-name">Vitamin K (Konakion)</div>
-                        <div class="med-dose">Dose: 1mg IM (Term) or Oral regimen</div>
-                        <div class="med-desc">Prevention of Vitamin K Deficiency Bleeding (VKDB). Consent required.</div>
-                        <span class="med-tag tag-labour">Neonatal</span>
-                    </div>
-                    <div class="med-item">
-                        <div class="med-name">Anti-D Immunoglobulin</div>
-                        <div class="med-dose">Dose: 1500 IU (Standard Postnatal) or 500 IU (Antenatal events)</div>
-                        <div class="med-desc">RhD Negative women. Administer within 72hrs of sensitising event/delivery.</div>
-                        <span class="med-tag tag-gynae">Antenatal</span>
-                    </div>
+                    <div class="med-item"><div class="med-name">Paracetamol</div><div class="med-dose">Dose: 1g PO/IV q4-6h (Max 4g/24h)</div><div class="med-desc">Mild pain/pyrexia. Caution &lt;50kg.</div><span class="med-tag tag-pain">Analgesia</span></div>
+                    <div class="med-item"><div class="med-name">Dihydrocodeine</div><div class="med-dose">Dose: 30mg PO q4-6h</div><div class="med-desc">Moderate pain (postnatal). Avoid in BF if baby prem.</div><span class="med-tag tag-pain">Analgesia</span></div>
+                    <div class="med-item"><div class="med-name">Pethidine</div><div class="med-dose">Dose: 50-100mg IM</div><div class="med-desc">1st stage labour. Crosses placenta (resp dep).</div><span class="med-tag tag-pain">Analgesia</span></div>
+                    <div class="med-item"><div class="med-name">Entonox</div><div class="med-dose">Dose: Inhaled 50:50</div><div class="med-desc">Self-administered. Rapid onset/offset.</div><span class="med-tag tag-pain">Analgesia</span></div>
+                    <div class="med-item"><div class="med-name">Syntocinon (Oxytocin)</div><div class="med-dose">Dose: 10 IU IM or 5 IU IV</div><div class="med-desc">3rd stage / PPH prevention.</div><span class="med-tag tag-labour">3rd Stage</span></div>
+                    <div class="med-item"><div class="med-name">Syntometrine</div><div class="med-dose">Dose: 1ml IM</div><div class="med-desc">3rd Stage. C/I: Hypertension.</div><span class="med-tag tag-labour">3rd Stage</span></div>
+                    <div class="med-item"><div class="med-name">Ergometrine</div><div class="med-dose">Dose: 500mcg IM / 250mcg IV</div><div class="med-desc">PPH. Sustained contraction. C/I: Hypertension.</div><span class="med-tag tag-emergency">PPH</span></div>
+                    <div class="med-item"><div class="med-name">Carboprost</div><div class="med-dose">Dose: 250mcg Deep IM</div><div class="med-desc">Severe PPH. C/I: Asthma.</div><span class="med-tag tag-emergency">PPH</span></div>
+                    <div class="med-item"><div class="med-name">Misoprostol</div><div class="med-dose">Dose: 800mcg PR/SL (PPH)</div><div class="med-desc">Prostaglandin. PPH or IOL.</div><span class="med-tag tag-emergency">PPH</span></div>
+                    <div class="med-item"><div class="med-name">Labetalol</div><div class="med-dose">Dose: 200mg PO</div><div class="med-desc">Hypertension/Pre-E. C/I: Asthma.</div><span class="med-tag tag-gynae">Hypertension</span></div>
+                    <div class="med-item"><div class="med-name">Magnesium Sulphate</div><div class="med-dose">Dose: 4g IV Load</div><div class="med-desc">Eclampsia prevention / Neuroprotection.</div><span class="med-tag tag-emergency">Emergency</span></div>
+                    <div class="med-item"><div class="med-name">Adrenaline</div><div class="med-dose">Dose: 500mcg (1:1000) IM</div><div class="med-desc">Anaphylaxis. Repeat 5 min.</div><span class="med-tag tag-emergency">Emergency</span></div>
+                    <div class="med-item"><div class="med-name">Benzylpenicillin</div><div class="med-dose">Dose: 3g IV Load</div><div class="med-desc">GBS Prophylaxis intrapartum.</div><span class="med-tag tag-anti">Antibiotic</span></div>
+                    <div class="med-item"><div class="med-name">Anti-D Ig</div><div class="med-dose">Dose: 1500 IU / 500 IU</div><div class="med-desc">RhD Neg prophylaxis.</div><span class="med-tag tag-gynae">Antenatal</span></div>
+                    <div class="med-item"><div class="med-name">Vitamin K</div><div class="med-dose">Dose: 1mg IM</div><div class="med-desc">VKDB prevention.</div><span class="med-tag tag-labour">Neonatal</span></div>
                 </div>
-            </div>
-        </div>
-
-        <div id="tab-ref" class="tab-content">
-            <div class="card">
-                <h2>Neonatal Vitals (Term)</h2>
-                <table class="ref-table">
-                    <tr><th>Vital</th><th>Normal Range</th></tr>
-                    <tr><td>Heart Rate</td><td>110 - 160 bpm</td></tr>
-                    <tr><td>Resp. Rate</td><td>30 - 60 bpm</td></tr>
-                    <tr><td>Temp (Axilla)</td><td>36.5 - 37.4 °C</td></tr>
-                    <tr><td>Blood Glucose</td><td>> 2.6 mmol/L</td></tr>
-                </table>
             </div>
         </div>
 
     </div>
 
     <nav class="nav-bar">
-        <div class="nav-item active" onclick="switchTab('edd', this)">EDD</div>
-        <div class="nav-item" onclick="switchTab('bishop', this)">Bishop</div>
-        <div class="nav-item" onclick="switchTab('meds', this)">Meds</div>
-        <div class="nav-item" onclick="switchTab('ref', this)">Ref</div>
+        <div class="nav-item active" onclick="switchTab('mora', this)"><span class="nav-icon">📊</span>MORA</div>
+        <div class="nav-item" onclick="switchTab('edd', this)"><span class="nav-icon">📅</span>EDD</div>
+        <div class="nav-item" onclick="switchTab('bishop', this)"><span class="nav-icon">📝</span>Bishop</div>
+        <div class="nav-item" onclick="switchTab('meds', this)"><span class="nav-icon">💊</span>Meds</div>
     </nav>
 
     <script>
-        // APP LOGIC
+        // === 1. MORA STATS LOGIC (Auto-Save) ===
+        const stats = ['births', 'ante', 'post', 'complex', 'nipe', 'suture'];
+
+        function loadStats() {
+            stats.forEach(key => {
+                const val = localStorage.getItem('mora_' + key) || 0;
+                document.getElementById('val-' + key).innerText = val;
+            });
+        }
+
+        function updateStat(key, change) {
+            const currentEl = document.getElementById('val-' + key);
+            let currentVal = parseInt(currentEl.innerText);
+            let newVal = currentVal + change;
+            if (newVal < 0) newVal = 0; // No negative numbers
+            
+            currentEl.innerText = newVal;
+            localStorage.setItem('mora_' + key, newVal); // Save to phone
+        }
+
+        // === 2. NAVIGATION LOGIC ===
         function switchTab(tabName, element) {
             document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
             document.getElementById('tab-' + tabName).classList.add('active');
@@ -363,31 +344,23 @@
             element.classList.add('active');
         }
 
-        // MEDICATION FILTER
+        // === 3. CALCULATOR LOGIC ===
         function filterMeds() {
             const input = document.getElementById('med-search');
             const filter = input.value.toUpperCase();
-            const list = document.getElementById('med-list');
-            const items = list.getElementsByClassName('med-item');
-
+            const items = document.getElementsByClassName('med-item');
             for (let i = 0; i < items.length; i++) {
-                const txtValue = items[i].textContent || items[i].innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    items[i].style.display = "";
-                } else {
-                    items[i].style.display = "none";
-                }
+                const txt = items[i].textContent || items[i].innerText;
+                items[i].style.display = txt.toUpperCase().indexOf(filter) > -1 ? "" : "none";
             }
         }
 
-        // CALCULATOR LOGIC
         function calculateEDD() {
             const lmpInput = document.getElementById('lmp').value;
             const cycleLength = parseInt(document.getElementById('cycle').value) || 28;
             if (!lmpInput) { alert("Please select an LMP date."); return; }
             const lmp = new Date(lmpInput);
-            const cycleAdjustment = cycleLength - 28;
-            const daysToAdd = 280 + cycleAdjustment;
+            const daysToAdd = 280 + (cycleLength - 28);
             const edd = new Date(lmp);
             edd.setDate(edd.getDate() + daysToAdd);
             
@@ -398,6 +371,4 @@
             const days = diffDays % 7;
 
             const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
-            document.getElementById('edd-date-display').innerText = edd.toLocaleDateString('en-GB', options);
-            document.getElementById('gestation-display').innerText = `${weeks} weeks + ${days} days`;
-       
+            document.getElementById('edd-da
